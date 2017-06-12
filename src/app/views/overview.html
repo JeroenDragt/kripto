@@ -1,0 +1,47 @@
+<template>
+<nav class="navbar navbar-inverse" style="border-radius: 0px;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Kripto</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Bitcoin</a></li>
+      <li><a href="#">Ethereum</a></li>
+      <li><a href="#">Litecoin</a></li>
+      <li><a href="#">DigitalCash</a></li>
+      <li><a href="#">Monero</a></li>
+    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span style="margin-right:10px;" class="glyphicon glyphicon-earphone"></span> Contact</a></li>
+        </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <div repeat.for="post of posts" class="list-group-item">
+                    <div if.bind="$first" class="row" style="margin:5px 10px">
+                        <div class=".thumbnail col-md-4">
+                            <img src="${post.featuredImageSrc}" style="width:100%">
+                        </div>
+                        <div class="col-md-8">
+                            <h1>${post.title}</h1>                        
+                        </div>
+                        <div class="col-md-12" innerhtml="${post.content}" style="padding-top:10px;"></div>
+                    </div>            
+                    <div if.bind="!$first" class="row" style="margin:5px 10px">
+                        <div class=".thumbnail col-md-4 d-flex align-items-center">
+                            <img src="${post.featuredImageSrc}" style="width:100%">
+                        </div>
+                        <div class="col-md-8">
+                            <h3>${post.title}</h3>
+                            <!--<div innerhtml="${post.content}"></div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</template>

@@ -11,13 +11,12 @@ export class WordPressApi {
 
     public async getPosts()
     {
-        let response = await this.http.fetch(this.wordpressRoot + "posts");
+        let response = await this.http.fetch(this.wordpressRoot + "posts?_embed");
         
-        let posts = await response.json()
-        
+        let posts = await response.json()        
         let parsedPosts = new Array<WordPressPost>();
-        posts.forEach(post => {            
-            parsedPosts.push(new WordPressPost(post.title.rendered, post.content.rendered))
+        posts.forEach(post => {                                    
+            parsedPosts.push(new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url))
         });
         return parsedPosts;
         
@@ -25,7 +24,10 @@ export class WordPressApi {
 }
 
 export class WordPressPost {
-constructor(public title :string,
-public content: string ) {}
+constructor(
+    public id: string,
+    public title :string,
+    public content: string,
+    public featuredImageSrc: string ) {}
 
 }

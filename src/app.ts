@@ -10,7 +10,7 @@ export class App {
     this.router = router;
     config.title = 'Aurelia';
     config.map([
-      { route: [''], name: 'home', moduleId: 'app/views/bitcoin' }
+      { route: [''], name: 'home', moduleId: 'app/views/overview' }
 
     ]);
   }
