@@ -1,0 +1,8 @@
+.nav li:hover{
+    cursor: pointer;
+}
+.tr-clickable:hover
+{
+    background: #eee;
+    cursor: pointer;
+}
