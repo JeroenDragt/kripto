@@ -1,31 +1,32 @@
 "use strict";
 import { inject } from "aurelia-framework";
-import { WordPressApi, WordPressPost } from "app/api/wordpress";
-import { CoinApi, Coin } from "app/api/coin";
 import { CoinInformation, CoinIdentifier} from "app/api/coin-information"; 
 
 
-@inject(WordPressApi, CoinApi, CoinInformation)
-export class Bitcoin {
-    constructor(private wordpressApi: WordPressApi, private currencyApi: CoinApi, private identifierApi: CoinInformation) { 
+@inject(CoinInformation)
+export class Overview {
+    constructor(private identifierApi: CoinInformation) { 
 
     }
-    public posts: Array<WordPressPost>;
-    public coins: Array<Coin>;
+    
     public coinIdentifiers: Array<CoinIdentifier>;
+    public activeCoin: CoinIdentifier;
 
     public async activate() {
                 
-        await this.loadAllPosts();   
+        //await this.loadAllPosts(); 
         this.coinIdentifiers = this.identifierApi.GetCoinIdentifiers();
-        this.coins = await this.currencyApi.getCoins("EUR", this.coinIdentifiers);        
+        //this.coinTableRows = await this.currencyApi.getCoins("EUR", this.coinIdentifiers);
+    }   
+
+    public changeActiveCoin(coinIdentifier: CoinIdentifier)
+    {
+        this.activeCoin = coinIdentifier;
     }
 
-    public async changeActiveCoin(code: string, name: string)
-    {
-        this.posts =  await this.wordpressApi.getPostsByCoin(name);
+    public activeCoinIdentifierChanged(newValue, oldValue) {
         this.coinIdentifiers.forEach(identifier => {
-            if(identifier.code === code ){
+            if(identifier.code === newValue.code ){
                 identifier.active = true;
             }
             else {
@@ -35,13 +36,9 @@ export class Bitcoin {
     }
 
     public async resetActiveCoin() {
-        await this.loadAllPosts();
         this.coinIdentifiers.forEach(identifier => {
             identifier.active = false;
         });
     }
-
-    public async loadAllPosts(){
-        this.posts = await this.wordpressApi.getPosts();
-    }
+   
 }

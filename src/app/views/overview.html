@@ -1,84 +1,31 @@
 <template>
-<nav class="navbar navbar-inverse" style="border-radius: 0px;">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#" click.delegate="resetActiveCoin()" >Kripto</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li repeat.for="identifier of coinIdentifiers" 
-          class="${identifier.active ? 'active' : ''}" 
-          click.delegate="changeActiveCoin(identifier.code, identifier.name)">
-            <a>${identifier.name}</a>
-        </li>      
-    </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span style="margin-right:10px;" class="glyphicon glyphicon-earphone"></span> Contact</a></li>
-        </ul>
-  </div>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="list-group">
-                <div repeat.for="post of posts" class="list-group-item">
-                    <div if.bind="$first" class="row" style="margin:5px 10px">
-                        <div class=".thumbnail col-md-4">
-                            <img src="${post.featuredImageSrc}" style="width:100%">
-                        </div>
-                        <div class="col-md-8">
-                            <h1>${post.title}</h1>                        
-                        </div>
-                        <div class="col-md-12" innerhtml="${post.content}" style="padding-top:10px;"></div>
-                    </div>            
-                    <div if.bind="!$first" class="row" style="margin:5px 10px">
-                        <div class=".thumbnail col-md-4 d-flex align-items-center">
-                            <img src="${post.featuredImageSrc}" style="width:100%">
-                        </div>
-                        <div class="col-md-8">
-                            <h3>${post.title}</h3>
-                            <!--<div innerhtml="${post.content}"></div>-->
-                        </div>
-                    </div>
-                </div>
+    <require from="./news/news"></require>
+    <require from="./coinoverview/coinoverview"></require>
+    <nav class="navbar navbar-inverse" style="border-radius: 0px;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#" click.delegate="resetActiveCoin()" >Kripto</a>
             </div>
+            <ul class="nav navbar-nav">
+            <li repeat.for="identifier of coinIdentifiers" 
+                class="${identifier.active ? 'active' : ''}" 
+                click.delegate="changeActiveCoin(identifier)">
+                    <a>${identifier.name}</a>
+                </li>
+            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span style="margin-right:10px;" class="glyphicon glyphicon-earphone"></span> Contact</a></li>
+                </ul>
         </div>
-        <!--<div class="col-md-7 list-group currency-row">
-            
-            <div class="col-md-4 list-group-item"> 
-                  <img src="https://s-media-cache-ak0.pinimg.com/originals/ef/da/8b/efda8b6316786f2ff349f3065974249b.jpg" class="pull-left h-100">
-                  <h1 class="pull-left">Bitcoin</h1>
-                  </div>
-            <div class="col-md-2 list-group-item"><h1>€2378,-</h1></div>
-            <div class="col-md-4 list-group-item"><h1>Vergelijk en koop!</h1></div>
-        </div>-->        
-            <!--<div class="col-md-7 list-group currency-row" repeat.for="coin of coins">
-                <div class="col-md-3"><img src="${coin.imageUrl}" class="h-100"></div>                
-                <div class="col-md-3"> <h1>${coin.name}</h1></div>
-                <div class="col-md-3"> <h1>${coin.price}</h1></div>
-                <div class="col-md-3"> <h1>${coin.percentChange}</h1></div>                
-            </div>-->
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <news active-coin-identifier.two-way="activeCoinIdentifier"> </news>
+            </div>       
             <div class="col-md-6 list-group">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Naam</th>                        
-                        <th>Prijs</th>
-                        <th>Verschil 24H</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr repeat.for="coin of coins"  click.delegate="changeActiveCoin(coin.code, coin.name)" class="tr-clickable">
-                        <td>
-                            <img src="${coin.imageUrl}?width=32&height=32">
-                            ${coin.name}
-                        </td>
-                        <td>${coin.price}</td>
-                        <td>${coin.percentChange}%</td>                        
-                    </tr>
-                    </tbody>
-                </table>
+                <coin-overview active-coin-identifier.two-way="activeCoinIdentifier" coin-identifiers.bind="coinIdentifiers"></coin-overview>
             </div>
         </div>
     </div>
-</div>
 </template>

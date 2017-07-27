@@ -7,11 +7,15 @@ export class App {
 
   }
   configureRouter(config, router) {
-    this.router = router;
+    
     config.title = 'Aurelia';
+    config.options.pushState = true;
+    config.options.root ="/";
     config.map([
-      { route: [''], name: 'home', moduleId: 'app/views/overview' }
-
+      { route: 'buyandcompare', name: 'buyandcompare', moduleId: 'app/views/buyandcompare' },
+      { route: '', name: 'home', moduleId: 'app/views/overview' }
+      
     ]);
+    this.router = router;
   }
 }

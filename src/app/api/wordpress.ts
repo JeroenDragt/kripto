@@ -23,6 +23,12 @@ export class WordPressApi {
         return this.parseResponseToWordpressPost(posts)
     }
 
+    public async getPostById(id: string) {
+        let response = await this.http.fetch(this.wordpressRoot +"posts?_embed&" + id);
+        let post = await response.json();
+        return new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url);
+    }
+
     private parseResponseToWordpressPost(posts){
         let parsedPosts = new Array<WordPressPost>();
         posts.forEach(post => {

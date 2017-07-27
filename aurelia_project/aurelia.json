@@ -113,6 +113,7 @@
           "aurelia-templating",
           "aurelia-templating-binding",
           "text",
+          "fetch-jsonp",
           {
             "name": "aurelia-templating-resources",
             "path": "../node_modules/aurelia-templating-resources/dist/amd",
@@ -141,7 +142,7 @@
             "resources": [
               "css/bootstrap.css"
             ]
-          }
+          }          
         ]
       }
     ],

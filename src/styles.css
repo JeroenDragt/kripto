@@ -6,3 +6,15 @@
     background: #eee;
     cursor: pointer;
 }
+
+.selected {
+    background: #eee;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}

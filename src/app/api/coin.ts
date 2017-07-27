@@ -9,21 +9,18 @@ export class CoinApi {
 
     private rootUrl: string = "https://min-api.cryptocompare.com/data/pricemultifull?"
     public async getCoins(valuta: string, coins: Array<CoinIdentifier>) {
-        
         let coinsQuery = await this.getCoinsQueryString(coins);
         let valutaQuery = "&tsyms=" + valuta;
         let response = await this.http.fetch(this.rootUrl + coinsQuery + valutaQuery);
         let json = await response.json()
 
-        let parsedCoins = new Array<Coin>();       
-        
-        coins.forEach(c => {            
-            let result = json.DISPLAY[c.code][valuta]
-            let parsedCoin = new Coin(c.code, c.name, result.PRICE, result.CHANGEPCT24HOUR, c.imageUrl);
+        let parsedCoins = new Array<CoinTableRow>();
+        coins.forEach(c => {
+            let result = json.DISPLAY[c.code][valuta]            
+            let parsedCoin = new CoinTableRow(c.code, c.name, result.PRICE, result.CHANGEPCT24HOUR, c.imageUrl);
             parsedCoins.push(parsedCoin);
         })
-
-        return parsedCoins;        
+        return parsedCoins;
     }
 
     private getCoinsQueryString(coins: Array<CoinIdentifier>) {
@@ -44,12 +41,13 @@ export class CoinApi {
     }
 }
 
-export class Coin {
-    constructor(    
+export class CoinTableRow {
+    public active: boolean = false;
+    constructor(
     public code: string,
     public name: string,
     public price: string,
-    public percentChange: string,
+    public percentChange: number,
     public imageUrl: string
     ){}
 }

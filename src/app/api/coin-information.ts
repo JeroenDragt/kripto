@@ -13,7 +13,7 @@ export class CoinInformation {
     }
 }
 
-export class CoinIdentifier {    
+export class CoinIdentifier { 
     public active: boolean
     constructor(public name: string,
         public code: string,
