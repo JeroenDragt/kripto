@@ -24,15 +24,17 @@ export class WordPressApi {
     }
 
     public async getPostById(id: string) {
-        let response = await this.http.fetch(this.wordpressRoot +"posts?_embed&" + id);
+        let response = await this.http.fetch(this.wordpressRoot +"posts/" + id + "?_embed");
         let post = await response.json();
-        return new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url);
+        let categoryName = post._embedded["wp:term"][0][0].name;
+        return new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url, categoryName);
     }
 
     private parseResponseToWordpressPost(posts){
         let parsedPosts = new Array<WordPressPost>();
         posts.forEach(post => {
-            parsedPosts.push(new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url))
+            let categoryName = post._embedded["wp:term"][0][0].name;
+            parsedPosts.push(new WordPressPost(post.id, post.title.rendered, post.content.rendered, post._embedded["wp:featuredmedia"][0].source_url,name))
         });
         return parsedPosts;
     }
@@ -50,6 +52,7 @@ constructor(
     public id: string,
     public title :string,
     public content: string,
-    public featuredImageSrc: string ) {}
+    public featuredImageSrc: string,
+    public categoryName: string ) {}
 
 }

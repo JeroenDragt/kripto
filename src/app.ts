@@ -11,9 +11,9 @@ export class App {
     config.title = 'Aurelia';
     config.options.pushState = true;
     config.options.root ="/";
-    config.map([
-      { route: 'buyandcompare', name: 'buyandcompare', moduleId: 'app/views/buyandcompare' },
-      { route: '', name: 'home', moduleId: 'app/views/overview' }
+    config.map([      
+      { route: ['', '/:id'], name: 'home', moduleId: 'app/views/overview' }
+      
       
     ]);
     this.router = router;

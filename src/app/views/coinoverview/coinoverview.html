@@ -9,11 +9,11 @@
         </thead>
         <tbody>
             <tr repeat.for="coinTableRow of coinTableRows"
-                click.delegate="changeActiveCoin(coinTableRow.code, coinTableRow.name)"
+                click.delegate="changeActiveCoinCategory(coinTableRow.identifier)"
                 class="tr-clickable ${coinTableRow.active ? 'selected' : ''}">
                 <td>
                     <img src="${coinTableRow.imageUrl}?width=32&height=32">
-                    ${coinTableRow.name}
+                    ${coinTableRow.identifier.name}
                 </td>
                 <td>${coinTableRow.price}</td>
                 <td class="${coinTableRow.percentChange > 0 ? 'green' : 'red'}">${coinTableRow.percentChange}%</td>

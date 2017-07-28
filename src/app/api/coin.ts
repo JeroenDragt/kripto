@@ -17,7 +17,7 @@ export class CoinApi {
         let parsedCoins = new Array<CoinTableRow>();
         coins.forEach(c => {
             let result = json.DISPLAY[c.code][valuta]            
-            let parsedCoin = new CoinTableRow(c.code, c.name, result.PRICE, result.CHANGEPCT24HOUR, c.imageUrl);
+            let parsedCoin = new CoinTableRow(c, result.PRICE, result.CHANGEPCT24HOUR, c.imageUrl);
             parsedCoins.push(parsedCoin);
         })
         return parsedCoins;
@@ -44,8 +44,7 @@ export class CoinApi {
 export class CoinTableRow {
     public active: boolean = false;
     constructor(
-    public code: string,
-    public name: string,
+    public identifier: CoinIdentifier,    
     public price: string,
     public percentChange: number,
     public imageUrl: string

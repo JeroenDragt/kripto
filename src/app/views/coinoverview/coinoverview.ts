@@ -4,7 +4,7 @@ import { CoinApi, CoinTableRow } from "app/api/coin";
 
 @inject(CoinApi)
 export class CoinOverview {
-    @bindable activeCoinIdentifier: CoinIdentifier
+    @bindable activeCoinIdentifier: CoinIdentifier;
     @bindable coinIdentifiers: Array<CoinIdentifier>;
     public coinTableRows: Array<CoinTableRow>;
     constructor(private currencyApi: CoinApi) { }
@@ -13,13 +13,14 @@ export class CoinOverview {
         this.coinTableRows = await this.currencyApi.getCoins("EUR", this.coinIdentifiers);
     }
 
-    public changeActiveCoin(identifier: CoinIdentifier) {
+    public changeActiveCoinCategory(identifier: CoinIdentifier) {
+        debugger;
         this.activeCoinIdentifier = identifier;
     }
 
     public activeCoinIdentifierChanged(newValue, oldValue) {
          this.coinTableRows.forEach(coinTableRow => {
-            if(coinTableRow.code === newValue.code ){
+            if(coinTableRow.identifier === newValue){
                 coinTableRow.active = true;
             }
             else {

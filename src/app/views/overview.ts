@@ -1,5 +1,5 @@
 "use strict";
-import { inject } from "aurelia-framework";
+import { inject, observable } from "aurelia-framework";
 import { CoinInformation, CoinIdentifier} from "app/api/coin-information"; 
 
 
@@ -10,18 +10,16 @@ export class Overview {
     }
     
     public coinIdentifiers: Array<CoinIdentifier>;
-    public activeCoin: CoinIdentifier;
+    @observable public activeCoinIdentifier: CoinIdentifier;
+    public articleId: string;
 
-    public async activate() {
-                
-        //await this.loadAllPosts(); 
+    public async activate(params) {
+        this.articleId = params.id;
         this.coinIdentifiers = this.identifierApi.GetCoinIdentifiers();
-        //this.coinTableRows = await this.currencyApi.getCoins("EUR", this.coinIdentifiers);
     }   
 
-    public changeActiveCoin(coinIdentifier: CoinIdentifier)
-    {
-        this.activeCoin = coinIdentifier;
+    public changeActiveCoin(coinIdentifier: CoinIdentifier) {
+        this.activeCoinIdentifier = coinIdentifier;
     }
 
     public activeCoinIdentifierChanged(newValue, oldValue) {
@@ -39,6 +37,5 @@ export class Overview {
         this.coinIdentifiers.forEach(identifier => {
             identifier.active = false;
         });
-    }
-   
+    }   
 }
