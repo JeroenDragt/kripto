@@ -3961,6 +3961,10 @@ tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
 
+tsc@^1.20150623.0:
+  version "1.20150623.0"
+  resolved "https://registry.yarnpkg.com/tsc/-/tsc-1.20150623.0.tgz#4ebc3c774e169148cbc768a7342533f082c7a6e5"
+
 tslint@^3.11.0:
   version "3.15.1"
   resolved "https://registry.yarnpkg.com/tslint/-/tslint-3.15.1.tgz#da165ca93d8fdc2c086b51165ee1bacb48c98ea5"

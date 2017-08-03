@@ -14,8 +14,7 @@ export class CoinBaseApi {
     private async getPrice(coin: string)
     {
         let response = await this.http.fetch(this.root + coin);
-        var json = await response.json();
-        debugger;
+        var json = await response.json();        
         return new WebsiteCoinValue("Coinbase", coin , json.data.rates["EUR"] )
     }
     

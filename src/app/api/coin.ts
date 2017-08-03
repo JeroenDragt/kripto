@@ -1,6 +1,6 @@
 import { inject } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
-import { CoinIdentifier } from "app/api/coin-information" 
+import { CoinIdentifier } from "app/api/coinIdentifierList" 
 @inject(HttpClient)
 export class CoinApi {
     constructor(private http: HttpClient) {

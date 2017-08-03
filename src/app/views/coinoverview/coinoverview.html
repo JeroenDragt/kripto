@@ -10,7 +10,7 @@
         <tbody>
             <tr repeat.for="coinTableRow of coinTableRows"
                 click.delegate="changeActiveCoinCategory(coinTableRow.identifier)"
-                class="tr-clickable ${coinTableRow.active ? 'selected' : ''}">
+                class="clickable ${coinTableRow.active ? 'selected' : ''}">
                 <td>
                     <img src="${coinTableRow.imageUrl}?width=32&height=32">
                     ${coinTableRow.identifier.name}

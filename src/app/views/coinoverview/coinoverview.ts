@@ -1,21 +1,23 @@
 import { inject, bindable } from "aurelia-framework";
-import { CoinIdentifier} from "app/api/coin-information";
+import { Router } from "aurelia-router";
+import { CoinIdentifier, CoinIdentifierList} from "app/api/coinIdentifierList";
 import { CoinApi, CoinTableRow } from "app/api/coin";
 
-@inject(CoinApi)
+@inject(CoinApi, CoinIdentifierList, Router)
 export class CoinOverview {
     @bindable activeCoinIdentifier: CoinIdentifier;
-    @bindable coinIdentifiers: Array<CoinIdentifier>;
+    
     public coinTableRows: Array<CoinTableRow>;
-    constructor(private currencyApi: CoinApi) { }
+    constructor(private currencyApi: CoinApi, public coinIdentifierList: CoinIdentifierList, private router: Router) {      
+     }
 
     public async attached() {
-        this.coinTableRows = await this.currencyApi.getCoins("EUR", this.coinIdentifiers);
+        this.coinTableRows = await this.currencyApi.getCoins("EUR", this.coinIdentifierList.coinIdentifiers);
     }
 
     public changeActiveCoinCategory(identifier: CoinIdentifier) {
-        debugger;
         this.activeCoinIdentifier = identifier;
+        this.router.navigateToRoute("overview");
     }
 
     public activeCoinIdentifierChanged(newValue, oldValue) {

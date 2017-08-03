@@ -1,41 +1,47 @@
 "use strict";
 import { inject, observable } from "aurelia-framework";
-import { CoinInformation, CoinIdentifier} from "app/api/coin-information"; 
+import { Router } from "aurelia-router"
+import { CoinIdentifier, CoinIdentifierList } from "app/api/coinIdentifierList";
 
-
-@inject(CoinInformation)
+@inject(CoinIdentifierList,Router)
 export class Overview {
-    constructor(private identifierApi: CoinInformation) { 
+    constructor(public coinIdentifierList: CoinIdentifierList, public router: Router) {
 
     }
-    
-    public coinIdentifiers: Array<CoinIdentifier>;
+
     @observable public activeCoinIdentifier: CoinIdentifier;
     public articleId: string;
 
     public async activate(params) {
+        
         this.articleId = params.id;
-        this.coinIdentifiers = this.identifierApi.GetCoinIdentifiers();
-    }   
+
+    }
 
     public changeActiveCoin(coinIdentifier: CoinIdentifier) {
         this.activeCoinIdentifier = coinIdentifier;
     }
 
     public activeCoinIdentifierChanged(newValue, oldValue) {
-        this.coinIdentifiers.forEach(identifier => {
-            if(identifier.code === newValue.code ){
-                identifier.active = true;
-            }
-            else {
-                identifier.active = false;
-            }
-        })
+        if (newValue) {
+
+            this.coinIdentifierList.coinIdentifiers.forEach(identifier => {
+                if (identifier.code === newValue.code) {
+                    identifier.active = true;
+                }
+                else {
+                    identifier.active = false;
+                }
+            })
+        }
     }
 
     public async resetActiveCoin() {
-        this.coinIdentifiers.forEach(identifier => {
+        this.coinIdentifierList.coinIdentifiers.forEach(identifier => {
             identifier.active = false;
         });
-    }   
+
+        this.activeCoinIdentifier = undefined;
+        this.router.navigateToRoute("overview");
+    }
 }
