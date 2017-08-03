@@ -14,8 +14,7 @@ export class News {
     }
 
     public async attached() {        
-        if (this.articleId) {
-            debugger;
+        if (this.articleId) {            
             this.selectedArticle = await this.wordpressApi.getPostById(this.articleId);
             this.setActiveCoinIdentifierByCategoryName(this.selectedArticle.categoryName);
         }
